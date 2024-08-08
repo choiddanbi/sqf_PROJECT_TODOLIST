@@ -1,36 +1,47 @@
-import React, { useEffect } from 'react';
+/** @jsxImportSource @emotion/react */
+import * as s from "./style";
+import React, { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import { useRecoilState } from 'recoil';
 import { registerModalAtom } from '../../atoms/modalAtoms';
+import RegisterTodo from "../RegisterTodo/RegisterTodo";
+
 
 function RegisterModal({ containerRef }) {
     const [ isOpen, setOpen ] = useRecoilState(registerModalAtom);
+    const [ animation, setAnimation ] = useState("registerModalContentOpen");
 
     const closeModal = () => {
-        setOpen(false);
+        setAnimation("registerModalContentClose");
+        setTimeout(() => {
+            setAnimation("registerModalContentOpen");
+            setOpen(false);
+        }, 500);
     }
 
     return (
         <ReactModal
             style={{
-                content: {
-                    position: "absolute",
-                    // boxSizing: "border-box",
-                    // margin: "0px auto",
-                    // border: "none",
-                    // width: "375px",
-                    // backgroundColor: "transparent",
-                },
                 overlay: {
                     position: "absolute",
-                    backgroundColor: "transparent"
-                }
+                    backgroundColor: "transparent",
+                },
+                content: {
+                    inset: "auto 0 0",
+                    boxSizing: "border-box",
+                    borderRadius: "10px",
+                    padding: "0",
+                    width: "100%",
+                    height: "80%",
+                    animation: `${animation} 0.6s 1`,
+                },
             }}
             isOpen={isOpen}
             onRequestClose={closeModal}
+            ariaHideApp={false}
             parentSelector={() => containerRef.current}
         >
-            
+            <RegisterTodo closeModal={closeModal}/>
         </ReactModal>
     );
 }

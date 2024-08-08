@@ -36,4 +36,22 @@ export const reset = css`
         color: #087fff40;
         background-color: transparent;
     }
+
+    @keyframes registerModalContentOpen {
+        from {
+            inset: auto 0 -650px;
+        }
+        to {
+            inset: auto 0 0;
+        }
+    }
+
+    @keyframes registerModalContentClose {
+        from {
+            inset: auto 0 0;
+        }
+        to {
+            inset: auto 0 -650px;
+        }
+    }
 `;

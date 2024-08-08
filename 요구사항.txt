@@ -31,8 +31,10 @@
 		- todo_tb
 			todoId		(PK, NN, AI)
 			userId		(NN)
+			title		(NN)
 			content		(NN)
-			important		(NN)	1, 2, 3, 4
+			important		(NN)	1, 2
+			busy		(NN)	1, 2
 			status		(NN)	1, 2
 			todoDateTime	(NN)	yyyy-MM-dd hh:mm:ss
 			createDate	(NN)	yyyy-MM-dd hh:mm:ss

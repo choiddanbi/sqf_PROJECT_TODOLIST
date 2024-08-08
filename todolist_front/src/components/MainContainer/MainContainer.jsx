@@ -5,43 +5,18 @@ import ReactModal from "react-modal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 
 function MainContainer({ children }) {
-    const [ scroll, setScroll ] = useState({
-        startY: 0,
-        isDown: false,
-    });
+    const [ modalElement, setModalElement ] = useState(<></>);
     const containerRef = useRef();
 
     useEffect(() => {
-        if(!!containerRef) {
-            ReactModal.setAppElement(containerRef.current);
+        if(!!containerRef){
+            setModalElement(<RegisterModal containerRef={containerRef} />);
         }
-    }, [containerRef]);
-
-    const handleDown = useCallback((e) => setScroll({
-        startY: e.clientY,
-        isDown: true,
-    }), []);
-
-    const handleUp = useCallback((e) => setScroll({
-        startY: 0,
-        isDown: false,
-    }), []);
-
-    const handleMove = (e) => {
-        if(scroll.isDown){
-            let moveY = (e.clientY - scroll.startY) * -1;
-            const scrollTop = containerRef.current.scrollTop;
-            containerRef.current.scrollTop = scrollTop + moveY;
-        }
-    }
+    }, [containerRef])
 
     return (
-        <div css={s.container} 
-            onMouseMove={handleMove} 
-            onMouseDown={handleDown}
-            onMouseUp={handleUp}
-            ref={containerRef} >
-            <RegisterModal containerRef={containerRef}/>
+        <div css={s.container} ref={containerRef} >
+            {modalElement}
             {children}
         </div>
     );

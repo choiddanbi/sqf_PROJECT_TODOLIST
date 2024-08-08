@@ -3,36 +3,69 @@ import { useSetRecoilState } from "recoil";
 import * as s from "./style";
 import { registerModalAtom } from "../../atoms/modalAtoms";
 import ReactSelect from "react-select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { addTodoApi } from "../../apis/todoApis/addTodoApi";
 
 function RegisterTodo({closeModal}) {
+    const importantOptions = [
+        { label: "🟣 " + "중요함", value: 1, },
+        { label: "⚪ " + "중요하지않음", value: 2, },
+    ];
+
+    const busyOptions = [
+        { label: "🔴 " + "급함", value: 1, },
+        { label: "⚪ " + "급하지않음", value: 2, },
+    ];
+
     const [ todo, setTodo ] = useState({
         title: "",
         content: "",
         dateTime: "",
-        important: "",
-        busy: ""
+        important: 1,
+        busy: 1,
     });
+
+    useEffect(() => {
+        const parse = (value) => (value < 10 ? "0" : "") + value;
+
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = parse(now.getMonth() + 1);
+        const day = parse(now.getDate());
+        const hours = parse(now.getHours());
+        const minutes = parse(now.getMinutes());
+
+        setTodo(todo => ({
+            ...todo,
+            dateTime: `${year}-${month}-${day}T${hours}:${minutes}`
+        }));
+    }, []);
 
     const handleOnChange = (e) => {
         setTodo(todo => ({
             ...todo,
             [e.target.name]: e.target.value
-        }))
+        }));
     }
 
     const handleImportantSelectOnChange = (option) => {
         setTodo(todo => ({
             ...todo,
             important: option.value
-        }))
+        }));
     }
 
     const handleBusySelectOnChange = (option) => {
         setTodo(todo => ({
             ...todo,
             busy: option.value
-        }))
+        }));
+    }
+
+    const handleSubmitClick = () => {
+        console.log(todo);
+        addTodoApi(todo);
+        closeModal();
     }
 
     return (
@@ -40,7 +73,7 @@ function RegisterTodo({closeModal}) {
             <header>
                 <button onClick={closeModal}>취소</button>
                 <h2>새로운 할 일</h2>
-                <button>추가</button>
+                <button onClick={handleSubmitClick} disabled={!todo.title.trim() || !todo.content.trim()}>추가</button>
             </header>
             <main>
                 <div css={s.todoDataBox}>
@@ -61,10 +94,8 @@ function RegisterTodo({closeModal}) {
                                 boxShadow: "none"
                             }),
                         }}
-                        options={[
-                            { label: "중요함", value: "1", },
-                            { label: "중요하지않음", value: "2", },
-                        ]}
+                        options={importantOptions}
+                        value={importantOptions.filter(option => option.value === todo.important)[0]}                        
                     />
 
                     <div css={s.line}></div>
@@ -79,10 +110,8 @@ function RegisterTodo({closeModal}) {
                                 boxShadow: "none"
                             }),
                         }}
-                        options={[
-                            { label: "급함", value: "1", },
-                            { label: "급하지않음", value: "2", },
-                        ]}
+                        options={busyOptions}
+                        value={busyOptions.filter(option => option.value === todo.busy)[0]}
                     />
                 </div>
             </main>

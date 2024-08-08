@@ -37,6 +37,12 @@ export const reset = css`
         background-color: transparent;
     }
 
+    button:disabled {
+        color: #087fff40;
+        background-color: transparent;
+        cursor: default;
+    }
+
     @keyframes registerModalContentOpen {
         from {
             inset: auto 0 -650px;

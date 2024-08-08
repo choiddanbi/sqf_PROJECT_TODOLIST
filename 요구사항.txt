@@ -1,0 +1,67 @@
+1. Todo
+	- 등록
+		- 일시를 선택해서 등록
+		- 우선순위(중요도 4단계)
+			- 중요O, 급함O
+			- 중요O, 급함X
+			- 중요X, 급함O
+			- 중요X, 급함X			
+	- 조회
+		- 일별, 월별, 년도별
+		- 완료, 미완료
+		- 중요도
+		- 정렬(수정일시기준)
+	- 수정
+		- 완료, 미완료
+		- Todo 내용
+		- 중요도
+		- 일시
+	- 삭제
+		- TodoID 기준
+
+	- 인증
+		- 회원가입
+		- 로그인
+		- 로그아웃
+		- 비밀번호 변경
+
+2. 데이터베이스(todolist_study_db)
+
+	- 테이블
+		- todo_tb
+			todoId		(PK, NN, AI)
+			userId		(NN)
+			content		(NN)
+			important		(NN)	1, 2, 3, 4
+			status		(NN)	1, 2
+			todoDateTime	(NN)	yyyy-MM-dd hh:mm:ss
+			createDate	(NN)	yyyy-MM-dd hh:mm:ss
+			updateDate	(NN)	yyyy-MM-dd hh:mm:ss
+		- user_tb
+			userId		(PK, NN, AI)
+			username	(NN, UQ)	
+			password		(NN)
+			name		(NN)
+			createDate	(NN)	yyyy-MM-dd hh:mm:ss
+			updateDate	(NN)	yyyy-MM-dd hh:mm:ss
+
+3. 페이지 라우팅 주소
+	
+	- path: /			name: 대시보드
+	- path: /login		name: 로그인
+	- path: /join		name: 회원가입
+
+4. 기능별 모달
+	
+	- Todo등록
+	- Todo수정
+	- 비밀번호 변경
+
+
+
+
+
+
+
+
+

@@ -7,7 +7,7 @@ function BackButtonTop({ setShow }) {
 
     const handleBackClick = () => {
         setShow(false);
-        setTimeout(() => navigate("/"), 500);
+        setTimeout(() => navigate("/todo"), 400);
     }
 
     return (

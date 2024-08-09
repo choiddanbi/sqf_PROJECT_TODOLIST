@@ -26,6 +26,11 @@ public class TodoController {
         return ResponseEntity.ok().body(todoService.getTodoList());
     }
 
+    @GetMapping("/todo/counts")
+    public ResponseEntity<?> getCounts() {
+        return ResponseEntity.ok().body(todoService.getTodoCounts());
+    }
+
 }
 
 

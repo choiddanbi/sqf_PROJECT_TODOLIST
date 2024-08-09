@@ -13,8 +13,7 @@ function App() {
             <Global styles={reset} />
             <MainLayout>
                 <Routes>
-                    <Route path="/" element={<Dashboard />} />
-                    <Route path="/todo/all" element={<TodoAll />} />
+                    <Route path="/todo/*" element={<Dashboard />} />
                     <Route path="/login" element={<></>} />
                     <Route path="/join" element={<></>} />
                     <Route path="/dp" element={<DandP />} />

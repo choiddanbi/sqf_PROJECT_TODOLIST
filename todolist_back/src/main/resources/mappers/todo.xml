@@ -36,4 +36,44 @@
         order by
             todoDateTime
     </select>
+    <select id="getTodoCounts" resultType="com.study.todolist.entity.TodoCounts">
+        select
+            (select
+                count(*)
+            from
+                todo_tb
+            where
+                status = 1) as `all`,
+
+            (select
+                count(*)
+            from
+                todo_tb
+            where
+                status = 1
+                and todoDateTime like concat(substr(now(), 1, 10), "%")) as `today`,
+
+            (select
+                count(*)
+            from
+                todo_tb
+            where
+                status = 1
+                and important = 1) as `important`,
+
+            (select
+                count(*)
+            from
+                todo_tb
+            where
+                status = 1
+                and busy = 1) as `busy`,
+
+            (select
+                count(*)
+            from
+                todo_tb
+            where
+                status = 2) as `complete`
+    </select>
 </mapper>

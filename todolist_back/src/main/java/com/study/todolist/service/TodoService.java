@@ -1,6 +1,7 @@
 package com.study.todolist.service;
 
 import com.study.todolist.dto.request.todo.ReqAddTodoDto;
+import com.study.todolist.dto.response.todo.RespTodoCountsDto;
 import com.study.todolist.dto.response.todo.RespTodoDto;
 import com.study.todolist.entity.Todo;
 import com.study.todolist.repository.TodoMapper;
@@ -29,6 +30,10 @@ public class TodoService {
         }
 
         return dtoList;
+    }
+
+    public RespTodoCountsDto getTodoCounts() {
+        return todoMapper.getTodoCounts().toDto();
     }
 }
 

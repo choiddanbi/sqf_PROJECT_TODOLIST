@@ -21,4 +21,19 @@
             now()
         )
     </insert>
+    <select id="findAll" resultType="com.study.todolist.entity.Todo">
+        select
+            todoId,
+            userId,
+            title,
+            content,
+            important,
+            busy,
+            status,
+            todoDateTime
+        from
+            todo_tb
+        order by
+            todoDateTime
+    </select>
 </mapper>

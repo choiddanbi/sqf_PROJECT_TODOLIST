@@ -1,12 +1,19 @@
 /** @jsxImportSource @emotion/react */
+import { useNavigate } from "react-router-dom";
 import DashboardListItem from "../DashboardListItem/DashboardListItem";
 import Icon from "../Icon/Icon";
 import * as s from "./style";
 import { BsCalendar4Week, BsCalendarEvent } from "react-icons/bs";
 
-function Menu({ icon, color, title, count }) {
+function Menu({ path, icon, color, title, count }) {
+    const navigate = useNavigate();
+    
+    const handleClick = () => {
+        navigate(path);
+    }
+
     return (
-        <div css={s.menuContainer}>
+        <div css={s.menuContainer} onClick={handleClick}>
             <div css={s.menuTop}>
                 <Icon color={color}>{icon}</Icon>
                 <p>{count}</p>
@@ -24,6 +31,7 @@ function MenuList(props) {
         <DashboardListItem title={"Menu"}>
             <div css={s.layout}>
                 <Menu 
+                    path={"/todo/all"}
                     icon={<BsCalendar4Week />} 
                     color={"#444444"} 
                     title={"전체"} 

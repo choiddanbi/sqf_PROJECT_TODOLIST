@@ -6,8 +6,10 @@ import { reset } from "./styles/common";
 import DandP from "./pages/DandP/DandP";
 import MainLayout from "./components/MainLayout/MainLayout";
 import TodoAll from "./pages/TodoAll/TodoAll";
+import { useEffect, useState } from "react";
 
 function App() {
+
     return (
         <>
             <Global styles={reset} />
@@ -18,7 +20,7 @@ function App() {
                     <Route path="/join" element={<></>} />
                     <Route path="/dp" element={<DandP />} />
                     <Route path="*" element={<NotFound />} />
-                </Routes>
+                </Routes> 
             </MainLayout>
         </>
     );

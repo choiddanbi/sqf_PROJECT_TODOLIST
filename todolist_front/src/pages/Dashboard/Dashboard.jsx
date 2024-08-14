@@ -12,6 +12,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { refreshTodolistAtom, todolistAtom } from "../../atoms/todolistAtoms";
 import { getTodoAllApi, getTodoCountsApi } from "../../apis/todoApis/getTodoApi";
 import { useEffect } from "react";
+import NotFound from "../NotFound/NotFound";
 
 function Dashboard(props) {
     const setTodolistAll = useSetRecoilState(todolistAtom);

@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import { useEffect } from "react";
 import * as s from "./style";
 import { useNavigate } from 'react-router-dom';
 

@@ -1,6 +1,7 @@
 package com.study.todolist.service;
 
 import com.study.todolist.dto.request.todo.ReqAddTodoDto;
+import com.study.todolist.dto.request.todo.ReqModifyTodoDto;
 import com.study.todolist.dto.response.todo.RespTodoCountsDto;
 import com.study.todolist.dto.response.todo.RespTodoDto;
 import com.study.todolist.entity.Todo;
@@ -28,12 +29,19 @@ public class TodoService {
         for(Todo todo : todoList) {
             dtoList.add(todo.toTodoDto());
         }
-
         return dtoList;
     }
 
     public RespTodoCountsDto getTodoCounts() {
         return todoMapper.getTodoCounts().toDto();
+    }
+
+    public int changeStatus(int todoId) {
+        return todoMapper.changeStatus(todoId);
+    }
+
+    public int modifyTodo(ReqModifyTodoDto reqDto) {
+        return todoMapper.modifyTodoByTodoId(reqDto.toEntity());
     }
 }
 

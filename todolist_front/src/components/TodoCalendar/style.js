@@ -57,16 +57,30 @@ export const todoTitleAndTime = css`
     display: flex;
     justify-content: space-between;
     & > h2 {
+        flex-grow: 1;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
         margin-right: 5px;
     }
+
+    & input {
+        box-sizing: border-box;
+        margin-bottom: 5px;
+        outline: none;
+        border: none;
+        padding: 0px 3px;
+        background-color: #f5f5f5;
+        width: 100%;
+        overflow-y: auto;
+        resize: none;
+        color: #777777;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
 `;
 
-export const todoSubBox = css`
-    display: flex;
-`;
 
 export const todoCheckBox = css`
     padding-right: 5px;
@@ -95,5 +109,34 @@ export const todoCheckBox = css`
         width: 14px;
         height: 14px;
         background-color: #7a7a7a;
+    }
+`;
+
+export const todoSubBox = css`
+    display: flex;
+    flex-direction: column;
+    padding-left: 28px;
+`;
+
+export const contentBox = css`
+    & > h3 {
+        cursor: default;
+    }
+
+    & > textarea {
+        box-sizing: border-box;
+        margin-bottom: 5px;
+        outline: none;
+        border: none;
+        padding: 0px 3px;
+        background-color: #f5f5f5;
+        width: 100%;
+        height: 60px;
+        overflow-y: auto;
+        resize: none;
+        color: #777777;
+        &::-webkit-scrollbar {
+            display: none;
+        }
     }
 `;

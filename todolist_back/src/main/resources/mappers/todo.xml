@@ -3,77 +3,103 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="com.study.todolist.repository.TodoMapper">
 
     <insert id="save">
         insert into todo_tb
         values (
-            0,
-            #{userId},
-            #{title},
-            #{content},
-            #{important},
-            #{busy},
-            1,
-            #{todoDateTime},
-            now(),
-            now()
+        0,
+        #{userId},
+        #{title},
+        #{content},
+        #{important},
+        #{busy},
+        1,
+        #{todoDateTime},
+        now(),
+        now()
         )
     </insert>
+
     <select id="findAll" resultType="com.study.todolist.entity.Todo">
         select
-            todoId,
-            userId,
-            title,
-            content,
-            important,
-            busy,
-            status,
-            todoDateTime
+        todoId,
+        userId,
+        title,
+        content,
+        important,
+        busy,
+        status,
+        todoDateTime
         from
-            todo_tb
+        todo_tb
         order by
-            todoDateTime
+        todoDateTime
     </select>
+
     <select id="getTodoCounts" resultType="com.study.todolist.entity.TodoCounts">
         select
-            (select
-                count(*)
-            from
-                todo_tb
-            where
-                status = 1) as `all`,
+        (select
+        count(*)
+        from
+        todo_tb
+        where
+        status = 1) as `all`,
 
-            (select
-                count(*)
-            from
-                todo_tb
-            where
-                status = 1
-                and todoDateTime like concat(substr(now(), 1, 10), "%")) as `today`,
+        (select
+        count(*)
+        from
+        todo_tb
+        where
+        status = 1
+        and todoDateTime like concat(substr(now(), 1, 10), "%")) as today,
 
-            (select
-                count(*)
-            from
-                todo_tb
-            where
-                status = 1
-                and important = 1) as `important`,
+        (select
+        count(*)
+        from
+        todo_tb
+        where
+        status = 1
+        and important = 1) as important,
 
-            (select
-                count(*)
-            from
-                todo_tb
-            where
-                status = 1
-                and busy = 1) as `busy`,
+        (select
+        count(*) as `busy`
+        from
+        todo_tb
+        where
+        status = 1
+        and busy = 1) as busy,
 
-            (select
-                count(*)
-            from
-                todo_tb
-            where
-                status = 2) as `complete`
+        (select
+        count(*)
+        from
+        todo_tb
+        where
+        status = 2) as `complete`
+        ;
+
     </select>
+
+    <update id="changeStatus">
+        update
+            todo_tb
+        set
+            status = if(status = 1, 2, 1)
+        where
+            todoId = #{todoId}
+    </update>
+
+    <update id="modifyTodoByTodoId" parameterType="com.study.todolist.entity.Todo">
+        update
+            todo_tb
+        set
+            title = #{title},
+            content = #{content},
+            todoDateTime ={todoDateTime},
+            important = #{important},
+            busy = #{busy},
+            status = #{status}
+        where
+            todoId = #{todoId}
+    </update>
 </mapper>

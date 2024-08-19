@@ -18,6 +18,7 @@ function Dashboard(props) {
     const setTodolistAll = useSetRecoilState(todolistAtom);
     const [ refresh, setRefresh ] = useRecoilState(refreshTodolistAtom);
 
+    // 여기에서 전역으로 한번만 들고와서 자식들한테 뿌려주는게 효율적이다 ( MenuList )
     const requestTodolist = async () => {
         const todolist = await getTodoAllApi();
         const counts = await getTodoCountsApi();

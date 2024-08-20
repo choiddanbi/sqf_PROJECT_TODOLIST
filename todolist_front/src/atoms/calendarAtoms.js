@@ -7,5 +7,12 @@ export const selectedCalendarTodoAtom = atom({
 
 export const modifyTodoAtom = atom({
     key: "modifyTodoState",
-    default: {}
+    default: {
+        todoId: 0,
+        title: "",
+        content: "",
+        todoDateTime: "",
+        important: 1,
+        busy: 1
+    }
 });

@@ -6,6 +6,8 @@ import { refreshTodolistAtom } from "../../atoms/todolistAtoms";
 import { modifyTodoAtom, selectedCalendarTodoAtom } from "../../atoms/calendarAtoms";
 import { useEffect } from "react";
 import ReactSelect from "react-select";
+import FullRedButton from "../FullRedButton/FullRedButton";
+import { deleteTodoApi } from "../../apis/todoApis/deleteTodoApi";
 
 function TodoBox({ todo }) { // 원본 todo
     const importantOptions = [
@@ -63,6 +65,13 @@ function TodoBox({ todo }) { // 원본 todo
             busy: option.value
         }));
     }
+
+    const handleDeleteClick = async() => {
+        await deleteTodoApi(todo.todoId);
+        setRefresh(true);
+        setSelectedTodo(0);
+    }
+    // 또는 async(todoId) => { await deleteTodoApi(todoId);} 도 가능
 
     return <div css={s.todoBox}>
         <div css={s.todoTitleBox}>
@@ -122,7 +131,7 @@ function TodoBox({ todo }) { // 원본 todo
                             styles={{
                                 control: (style) => ({
                                     ...style, 
-                                    marginBottom: "5px",
+                                    marginBottom: "10px",
                                     border: "none", 
                                     outline: "none", 
                                     boxShadow: "none",
@@ -141,6 +150,9 @@ function TodoBox({ todo }) { // 원본 todo
                             options={busyOptions}
                             value={busyOptions.filter(option => option.value === modifyTodo.busy)[0]}
                         />
+                        <div css={s.deleteButton}>
+                            <FullRedButton onClick={() => handleDeleteClick(todo.todoId)}>삭제하기</FullRedButton>
+                        </div>
                     </div>
                 </>
             }

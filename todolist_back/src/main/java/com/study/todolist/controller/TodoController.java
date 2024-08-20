@@ -44,9 +44,15 @@ public class TodoController {
     * pathvariable 생략 가능한 이유 = reqdto에 todoId가 이미 있어서..?
     * */
     @PutMapping("/todo/{todoId}")
-    public ResponseEntity<?> modify(@RequestBody ReqModifyTodoDto reqdto) {
-        log.info("{}", reqdto);
-        return ResponseEntity.ok().body(todoService.modifyTodo(reqdto));
+    public ResponseEntity<?> modify(@RequestBody ReqModifyTodoDto dto) {
+        log.info("{}", dto);
+        return ResponseEntity.ok().body(todoService.modifyTodo(dto));
+    }
+
+    @DeleteMapping("/todo/{todoId}")
+    public ResponseEntity<?> delete(@PathVariable int todoId) {
+        log.info("{}", todoId);
+        return ResponseEntity.ok().body(todoService.deleteTodo(todoId));
     }
 }
 

@@ -140,3 +140,7 @@ export const contentBox = css`
         }
     }
 `;
+
+export const deleteButton = css`
+    border-right: 28px;
+`;

@@ -40,8 +40,12 @@ public class TodoService {
         return todoMapper.changeStatus(todoId);
     }
 
-    public int modifyTodo(ReqModifyTodoDto reqDto) {
-        return todoMapper.modifyTodoByTodoId(reqDto.toEntity());
+    public int modifyTodo(ReqModifyTodoDto dto) {
+        return todoMapper.modifyTodoByTodoId(dto.toEntity());
+    }
+
+    public int deleteTodo(int todoId) {
+        return todoMapper.deleteByTodoId(todoId);
     }
 }
 

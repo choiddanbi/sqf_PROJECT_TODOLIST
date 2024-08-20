@@ -7,7 +7,7 @@ import BackButtonTop from '../../components/BackButtonTop/BackButtonTop';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import { MENUS } from '../../constants/menus';
 import { useRecoilState } from 'recoil';
-import { refreshTodolistAtom, todolistAtom } from '../../atoms/todolistAtoms';
+import { todolistAtom } from '../../atoms/todolistAtoms';
 import TodoCalendar from '../../components/TodoCalendar/TodoCalendar';
 import RegisterTodoButton from '../../components/RegisterTodoButton/RegisterTodoButton';
 import { modifyTodoAtom, selectedCalendarTodoAtom } from "../../atoms/calendarAtoms";
@@ -15,11 +15,10 @@ import ConfrimButtonTop from "../../components/ConfirmButtonTop/ConfirmButtonTop
 import { changeTodo } from "../../apis/todoApis/modifyTodoApi";
 import SubPageContainer from "../../components/SubPageContainer/SubPageContainer";
 
-function TodoAll(props) {
+function TodoComplete(props) {
     const [ todolistAll ] = useRecoilState(todolistAtom);
     const [ selectedTodo, setSelectedTodo ] = useRecoilState(selectedCalendarTodoAtom);
     const [ modifyTodo, setModifyTodo ] = useRecoilState(modifyTodoAtom);
-    const [ refresh, setRefresh ] = useRecoilState(refreshTodolistAtom);
 
     const [ isShow, setShow ] = useState(true);
     const [ calendarData, setCalendarData ] = useState({});
@@ -47,6 +46,10 @@ function TodoAll(props) {
         const tempCalendarData = {};
 
         for(let todo of todolistAll.todolist) { // Dashboard에서 recoil에 db에서 받아온 값 넣어놨음!
+            if(todo.important !== 2) { // todo가 완료면 계속해라
+                continue;
+            }
+
             const dateTime = todo.todoDateTime;
             const year = dateTime.slice(0, 4);
             const month = dateTime.slice(5, 7);
@@ -65,7 +68,7 @@ function TodoAll(props) {
             tempCalendarData[year][month][date].push(todo);
         }
         setCalendarData(tempCalendarData);
-    }, [todolistAll, refresh]);
+    }, [todolistAll]);
 
 
     const modifyCancel = () => {
@@ -76,7 +79,6 @@ function TodoAll(props) {
         console.log(modifyTodo); // dto가 이 형태여야함
         await changeTodo(modifyTodo);
         setSelectedTodo(0);
-        setRefresh(true);
     }
 
 
@@ -89,7 +91,7 @@ function TodoAll(props) {
                         ? <BackButtonTop setShow={setShow} />
                         : <ConfrimButtonTop onCancel={modifyCancel} onSubmit={modifySubmit} disabled={submitButtonDisabled}/>
                     }
-                    <PageTitle title={MENUS.all.title} color={MENUS.all.color} />
+                    <PageTitle title={MENUS.complete.title} color={MENUS.complete.color} />
                     <TodoCalendar calendarData={calendarData} />
                     <RegisterTodoButton />
                 </div>
@@ -98,4 +100,4 @@ function TodoAll(props) {
     );
 }
 
-export default TodoAll;
+export default TodoComplete;

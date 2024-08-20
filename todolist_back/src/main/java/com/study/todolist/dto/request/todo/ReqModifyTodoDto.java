@@ -2,8 +2,6 @@ package com.study.todolist.dto.request.todo;
 
 import com.study.todolist.entity.Todo;
 import lombok.Data;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data

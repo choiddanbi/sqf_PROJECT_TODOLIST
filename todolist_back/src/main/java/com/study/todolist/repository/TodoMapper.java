@@ -13,4 +13,5 @@ public interface TodoMapper {
     TodoCounts getTodoCounts();
     int changeStatus(int todoId);
     int modifyTodoByTodoId(Todo todo);
+    int deleteByTodoId(int todoId);
 }

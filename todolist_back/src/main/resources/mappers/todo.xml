@@ -21,6 +21,14 @@
         )
     </insert>
 
+    <delete id="deleteByTodoId">
+        delete
+        from
+            todo_tb
+        where
+            todoId = #{todoId}
+    </delete>
+
     <select id="findAll" resultType="com.study.todolist.entity.Todo">
         select
         todoId,
@@ -95,7 +103,7 @@
         set
             title = #{title},
             content = #{content},
-            todoDateTime ={todoDateTime},
+            todoDateTime = #{todoDateTime},
             important = #{important},
             busy = #{busy},
             status = #{status}
